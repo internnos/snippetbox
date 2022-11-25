@@ -19,11 +19,13 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 
 func snippetCreate(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
+		w.Header().Set("Allow", "POST")
 		// caveat:
 		// WriteHeader can only be written once!
 		// if WriteHeader is not put before Write, then the status would still be 200!
 		w.WriteHeader(405)
 		w.Write([]byte("Method Not Allowed"))
+		return
 	}
 	w.Write([]byte("Create a specific snippet ..."))
 }
